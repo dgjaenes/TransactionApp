@@ -1,3 +1,3 @@
 # TransactionApp
 
-UIKI + MVVM * COMBINE
+UIKIT + MVVM + COMBINE
