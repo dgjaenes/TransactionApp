@@ -2,8 +2,7 @@
 //  AppDelegate.swift
 //  Transactions
 //
-//  Created by NEORIS on 24/1/23.
-//
+
 
 import UIKit
 
