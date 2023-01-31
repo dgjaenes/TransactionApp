@@ -14,7 +14,7 @@ protocol ProductInteractorProtocol {
     func getRates() -> AnyPublisher<RatesDO, TransactionsAppError>
     func filterProduct(transactions: TransactionsDO) -> [Product]
     func getInverseRates(rates: [Rates]) -> [Rates]
-    func getTotalAmountToCurrentCurrency(transactions: [TransactionsProduct], ratesItems: [Rates]) -> Double
+    func getTotalAmountToCurrentCurrency(transactions: [TransactionsProduct], ratesItems: [Rates]) -> String
 }
 
 class ProductInteractor: ProductInteractorProtocol {
@@ -67,7 +67,7 @@ class ProductInteractor: ProductInteractorProtocol {
         return finalRates
     }
     
-    func getTotalAmountToCurrentCurrency(transactions: [TransactionsProduct], ratesItems: [Rates]) -> Double {
+    func getTotalAmountToCurrentCurrency(transactions: [TransactionsProduct], ratesItems: [Rates]) -> String {
         var amount: Double = 0.0
         transactions.enumerated().forEach { index, item in
             if item.currency == cuurentCurrency {
@@ -82,7 +82,10 @@ class ProductInteractor: ProductInteractorProtocol {
             }
         }
         
-        return amount
+        let divisorF = pow(10.0, Double(2))
+        let price = ((amount * divisorF).rounded(.down) / divisorF)
+        let amountStrint = String(format:"%.2f", price)
+        return amountStrint
     }
     
     private func calculateMissingRates(from: String, to: String, ratesItems: [Rates]) -> Double? {

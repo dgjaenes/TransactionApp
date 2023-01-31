@@ -11,7 +11,7 @@ import UIKit
 struct Product {
     let sku: String
     var transactions: [TransactionsProduct]
-    var totalAmount: Double = 0
+    var totalAmount: String = "0"
 }
 
 struct TransactionsProduct {
