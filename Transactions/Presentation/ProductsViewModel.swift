@@ -63,7 +63,7 @@ class ProductsViewModel {
     
     private func setProductView() {
         guard let rates = self.rates else {return}
-        let finalRates = interactor.getInverseRates(rates: rates)
+        let finalRates = interactor.getMissingRates(rates: rates)
         self.products = self.products?.map({ Product(sku: $0.sku,
                                                     transactions: $0.transactions,
                                                     totalAmount: interactor.getTotalAmountToCurrentCurrency(

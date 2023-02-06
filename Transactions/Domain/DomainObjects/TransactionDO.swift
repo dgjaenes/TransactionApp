@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - TransactionsDOElement
-struct TransactionsDOElement: Codable {
+struct TransactionsDOElement: Codable, Equatable {
     let sku: String
     let amount: Double
     let currency: String

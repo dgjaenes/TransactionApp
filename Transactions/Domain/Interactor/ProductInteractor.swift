@@ -13,7 +13,7 @@ protocol ProductInteractorProtocol {
     func getTransactions() -> AnyPublisher<TransactionsDO, TransactionsAppError>
     func getRates() -> AnyPublisher<RatesDO, TransactionsAppError>
     func filterProduct(transactions: TransactionsDO) -> [Product]
-    func getInverseRates(rates: [Rates]) -> [Rates]
+    func getMissingRates(rates: [Rates]) -> [Rates]
     func getTotalAmountToCurrentCurrency(transactions: [TransactionsProduct], ratesItems: [Rates]) -> String
 }
 
@@ -23,6 +23,7 @@ class ProductInteractor: ProductInteractorProtocol {
     var ratesRepository: RatesRepositoryProtocol
     var countNotFound = 0
     let cuurentCurrency = "EUR"
+    var ratesChecked: [Rates] =  []
     
     init(transactionsRepository: TransactionsRepositoryProtocol, ratesRepository: RatesRepositoryProtocol) {
         self.transactionsRepository = transactionsRepository
@@ -41,7 +42,7 @@ class ProductInteractor: ProductInteractorProtocol {
     func getRates() -> AnyPublisher<RatesDO, TransactionsAppError> {
         ratesRepository.getRates()
     }
-
+    
     func filterProduct(transactions: TransactionsDO) -> [Product] {
         var products: [Product] = []
         transactions.enumerated().forEach({ index, item in
@@ -67,6 +68,15 @@ class ProductInteractor: ProductInteractorProtocol {
         return finalRates
     }
     
+    func getMissingRates(rates: [Rates]) -> [Rates] {
+        ratesChecked = getInverseRates(rates: rates)
+        let filterRates = ratesChecked.filter({$0.from != cuurentCurrency && $0.to != cuurentCurrency})
+        for item in filterRates {
+            calculateMissingRates(ratesItems: filterRates.filter({$0.from == item.from}), ratePreviuos: 1, rate: item.from)
+        }
+        return getInverseRates(rates: ratesChecked)
+    }
+    
     func getTotalAmountToCurrentCurrency(transactions: [TransactionsProduct], ratesItems: [Rates]) -> String {
         var amount: Double = 0.0
         transactions.enumerated().forEach { index, item in
@@ -75,10 +85,7 @@ class ProductInteractor: ProductInteractorProtocol {
             } else if let i = ratesItems.firstIndex(where: { $0.from == item.currency && $0.to == cuurentCurrency }) {
                 amount = amount + (item.amount * ratesItems[i].rate)
             } else {
-                guard let rate = calculateMissingRates(from: item.currency, to: cuurentCurrency, ratesItems: ratesItems) else {
-                    return
-                }
-                amount = amount + (item.amount * rate)
+                amount = 0.0
             }
         }
         
@@ -88,42 +95,18 @@ class ProductInteractor: ProductInteractorProtocol {
         return amountStrint
     }
     
-    private func calculateMissingRates(from: String, to: String, ratesItems: [Rates]) -> Double? {
-        
-        var rate: Double?
-        let firtslevelsItems = ratesItems.filter({$0.to == to})
-        for item in firtslevelsItems {
-            let secondLevelsItems = ratesItems.filter({$0.to == item.from && $0.to != to && $0.from != to})
-            for secondItem in secondLevelsItems {
-                guard rate == nil else {
-                    return rate
+    func calculateMissingRates(ratesItems: [Rates], ratePreviuos: Double, rate: String) {
+        for item in ratesItems {
+            if item.to == cuurentCurrency {
+                ratesChecked.append(Rates(from: rate, to: cuurentCurrency, rate: item.rate * ratePreviuos))
+                return
+            } else {
+                guard !ratesChecked.contains(where: {$0.from == rate && $0.to == cuurentCurrency}) else {
+                    return
                 }
-                if secondItem.from == from {
-                    rate = secondItem.rate * item.rate
-                } else {
-                    let thirdLevelItems = ratesItems.filter({$0.to == secondItem.from && $0.to != to && $0.from != to})
-                    for thirdItem in thirdLevelItems {
-                        if thirdItem.from == from {
-                            rate = thirdItem.rate * secondItem.rate * item.rate
-                        } else {
-                            let LevelItems4 = ratesItems.filter({$0.to == thirdItem.from && $0.to != to && $0.from != to})
-                            for Item4 in LevelItems4 {
-                                if Item4.from == from {
-                                    rate = Item4.rate * thirdItem.rate * secondItem.rate * item.rate
-                                }
-                            }
-                        }
-                    }
-                }
+                let filerRates = ratesChecked.filter({$0.from == item.to})
+                calculateMissingRates(ratesItems: filerRates, ratePreviuos: item.rate * ratePreviuos, rate: item.from)
             }
         }
-        
-        if rate == nil {
-            countNotFound = countNotFound + 1
-            print("not found: \(from) to: \(to)")
-            print("\(countNotFound) not found")
-        }
-        
-        return rate
     }
 }
