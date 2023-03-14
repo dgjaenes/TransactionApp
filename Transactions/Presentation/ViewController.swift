@@ -9,6 +9,7 @@ import Combine
 class ViewController: UIViewController { 
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var initLabel: UILabel!
     
     private var dataSourceSubscriber: AnyCancellable?
     var viewModel = ViewModelProvaider.viewModelProduct()
@@ -29,9 +30,6 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
     }
-
-    
-    @IBOutlet weak var initLabel: UILabel!
 }
 
 extension ViewController: UITableViewDataSource {

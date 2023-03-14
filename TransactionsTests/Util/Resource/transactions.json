@@ -1,0 +1,12 @@
+[
+  {
+    "sku": "X0001",
+    "amount": 100.0,
+    "currency": "CAD"
+  },
+  {
+    "sku": "X0002",
+    "amount": 50.0,
+    "currency": "EUR"
+  }
+]

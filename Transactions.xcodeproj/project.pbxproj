@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		99115EF929C0AF5900BDA508 /* ManagerTransactionsAppRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99115EF829C0AF5900BDA508 /* ManagerTransactionsAppRepositoryMock.swift */; };
+		99115EFB29C0AF9800BDA508 /* RatesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99115EFA29C0AF9800BDA508 /* RatesRepositoryMock.swift */; };
+		9921FD9B29BF4C6600378B57 /* TransactionsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9921FD9A29BF4C6600378B57 /* TransactionsRepositoryMock.swift */; };
+		9921FD9E29BF4DC800378B57 /* transactions.json in Resources */ = {isa = PBXBuildFile; fileRef = 9921FD9D29BF4DC700378B57 /* transactions.json */; };
+		9921FDA029BF4DD800378B57 /* rates.json in Resources */ = {isa = PBXBuildFile; fileRef = 9921FD9F29BF4DD800378B57 /* rates.json */; };
 		992AC9BB29802C86009F4204 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992AC9BA29802C86009F4204 /* AppDelegate.swift */; };
 		992AC9BD29802C86009F4204 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992AC9BC29802C86009F4204 /* SceneDelegate.swift */; };
 		992AC9BF29802C86009F4204 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992AC9BE29802C86009F4204 /* ViewController.swift */; };
@@ -48,6 +53,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		99115EF829C0AF5900BDA508 /* ManagerTransactionsAppRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerTransactionsAppRepositoryMock.swift; sourceTree = "<group>"; };
+		99115EFA29C0AF9800BDA508 /* RatesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesRepositoryMock.swift; sourceTree = "<group>"; };
+		9921FD9A29BF4C6600378B57 /* TransactionsRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsRepositoryMock.swift; sourceTree = "<group>"; };
+		9921FD9D29BF4DC700378B57 /* transactions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = transactions.json; sourceTree = "<group>"; };
+		9921FD9F29BF4DD800378B57 /* rates.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rates.json; sourceTree = "<group>"; };
 		992AC9B729802C86009F4204 /* Transactions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transactions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		992AC9BA29802C86009F4204 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		992AC9BC29802C86009F4204 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +121,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9921FD9729BF4AA300378B57 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				9921FD9C29BF4D9D00378B57 /* Resource */,
+				9921FD9A29BF4C6600378B57 /* TransactionsRepositoryMock.swift */,
+				99115EFA29C0AF9800BDA508 /* RatesRepositoryMock.swift */,
+				99115EF829C0AF5900BDA508 /* ManagerTransactionsAppRepositoryMock.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		9921FD9C29BF4D9D00378B57 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				9921FD9F29BF4DD800378B57 /* rates.json */,
+				9921FD9D29BF4DC700378B57 /* transactions.json */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		992AC9AE29802C86009F4204 = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				992AC9D129802C89009F4204 /* TransactionsTests.swift */,
+				9921FD9729BF4AA300378B57 /* Util */,
 			);
 			path = TransactionsTests;
 			sourceTree = "<group>";
@@ -348,6 +379,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9921FD9E29BF4DC800378B57 /* transactions.json in Resources */,
+				9921FDA029BF4DD800378B57 /* rates.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +462,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				992AC9D229802C89009F4204 /* TransactionsTests.swift in Sources */,
+				9921FD9B29BF4C6600378B57 /* TransactionsRepositoryMock.swift in Sources */,
+				99115EF929C0AF5900BDA508 /* ManagerTransactionsAppRepositoryMock.swift in Sources */,
+				99115EFB29C0AF9800BDA508 /* RatesRepositoryMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

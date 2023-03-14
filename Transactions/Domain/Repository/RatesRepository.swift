@@ -2,8 +2,6 @@
 //  RatesRepositoryImplement.swift
 //  Transactions
 //
-//  Created by NEORIS on 25/1/23.
-//
 
 import Foundation
 import Combine
